@@ -1,0 +1,69 @@
+package models
+
+import (
+	"context"
+	"log"
+	"time"
+
+	"{{projectName}}/config"
+
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
+)
+
+var DB *mongo.Database
+
+type User struct {
+	ID        string    `json:"id" bson:"_id,omitempty"`
+	Name      string    `json:"name" bson:"name"`
+	Email     string    `json:"email" bson:"email"`
+	Age       *int      `json:"age" bson:"age,omitempty"`
+	CreatedAt time.Time `json:"created_at" bson:"created_at"`
+	UpdatedAt time.Time `json:"updated_at" bson:"updated_at"`
+}
+
+func ConnectDatabase() error {
+	clientOptions := options.Client().ApplyURI(config.AppConfig.DatabaseURL)
+	client, err := mongo.Connect(context.Background(), clientOptions)
+	
+	if err != nil {
+		return err
+	}
+
+	// Check the connection
+	err = client.Ping(context.Background(), nil)
+	if err != nil {
+		return err
+	}
+
+	DB = client.Database(config.AppConfig.DatabaseName)
+	log.Println("✅ Connected to MongoDB")
+
+	// Create indexes
+	if err := createIndexes(); err != nil {
+		log.Printf("Warning: Failed to create indexes: %v", err)
+	}
+
+	return nil
+}
+
+func createIndexes() error {
+	userCollection := DB.Collection("users")
+	
+	// Create unique index on email
+	indexModel := mongo.IndexModel{
+		Keys: map[string]int{"email": 1},
+		Options: options.Index().SetUnique(true),
+	}
+	
+	_, err := userCollection.Indexes().CreateOne(context.Background(), indexModel)
+	return err
+}
+
+func (u *User) PreSave() {
+	now := time.Now()
+	if u.CreatedAt.IsZero() {
+		u.CreatedAt = now
+	}
+	u.UpdatedAt = now
+}

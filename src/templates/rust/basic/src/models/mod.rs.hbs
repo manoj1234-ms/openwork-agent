@@ -1,0 +1,79 @@
+use serde::{Deserialize, Serialize};
+use chrono::{DateTime, Utc};
+use uuid::Uuid;
+
+#[derive(Debug, Clone, Queryable, Selectable, Serialize)]
+#[diesel(table_name = crate::schema::users)]
+#[diesel(check_for_backend(diesel::pg::Pg))]
+pub struct User {
+    pub id: Uuid,
+    pub name: String,
+    pub email: String,
+    pub age: Option<i32>,
+    pub created_at: DateTime<Utc>,
+    pub updated_at: DateTime<Utc>,
+}
+
+#[derive(Debug, Insertable, Serialize, Deserialize)]
+#[diesel(table_name = crate::schema::users)]
+pub struct NewUser {
+    pub name: String,
+    pub email: String,
+    pub age: Option<i32>,
+}
+
+#[derive(Debug, AsChangeset, Deserialize)]
+#[diesel(table_name = crate::schema::users)]
+pub struct UpdateUser {
+    pub name: Option<String>,
+    pub email: Option<String>,
+    pub age: Option<i32>,
+    pub updated_at: DateTime<Utc>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct ApiResponse<T> {
+    pub success: bool,
+    pub data: Option<T>,
+    pub message: Option<String>,
+}
+
+impl<T> ApiResponse<T> {
+    pub fn success(data: T) -> Self {
+        Self {
+            success: true,
+            data: Some(data),
+            message: None,
+        }
+    }
+
+    pub fn success_with_message(data: T, message: String) -> Self {
+        Self {
+            success: true,
+            data: Some(data),
+            message: Some(message),
+        }
+    }
+
+    pub fn error(message: String) -> Self {
+        Self {
+            success: false,
+            data: None,
+            message: Some(message),
+        }
+    }
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct CreateUserRequest {
+    pub name: String,
+    pub email: String,
+    pub age: Option<i32>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct UpdateUserRequest {
+    pub name: Option<String>,
+    pub email: Option<String>,
+    pub age: Option<i32>,
+}

@@ -1,0 +1,10 @@
+diesel::table! {
+    users (id) {
+        id -> Uuid,
+        name -> Varchar,
+        email -> Varchar,
+        age -> Nullable<Integer>,
+        created_at -> Timestamp,
+        updated_at -> Timestamp,
+    }
+}

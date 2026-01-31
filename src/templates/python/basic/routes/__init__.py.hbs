@@ -1,0 +1,12 @@
+from fastapi import APIRouter
+from routes import users
+
+api_router = APIRouter()
+
+api_router.include_router(users.router)
+
+@app.get("/")
+async def root():
+    return {"message": "{{pascalCase projectName}} API is running"}
+
+__all__ = ["api_router"]

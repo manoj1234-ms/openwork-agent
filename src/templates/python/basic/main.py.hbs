@@ -1,0 +1,58 @@
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+import uvicorn
+import os
+from dotenv import load_dotenv
+
+from config.database import connect_database
+from routes import api_router
+from middleware.error_handler import global_exception_handler
+
+load_dotenv()
+
+app = FastAPI(
+    title="{{pascalCase projectName}} API",
+    description="{{description}}",
+    version="1.0.0"
+)
+
+# CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Global exception handler
+app.exception_handler(Exception)(global_exception_handler)
+
+# Include routes
+app.include_router(api_router, prefix="/api")
+
+@app.get("/health")
+async def health_check():
+    return {
+        "status": "OK",
+        "timestamp": "2024-01-01T00:00:00Z"
+    }
+
+@app.on_event("startup")
+async def startup_event():
+    await connect_database()
+    print("🚀 Server started successfully")
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    print("🔌 Server shutting down")
+
+if __name__ == "__main__":
+    port = int(os.getenv("PORT", 8000))
+    uvicorn.run(
+        "main:app",
+        host="0.0.0.0",
+        port=port,
+        reload=True
+    )

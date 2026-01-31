@@ -1,0 +1,91 @@
+package com.{{snakeCase projectName}}.{{projectName}}.controller;
+
+import com.{{snakeCase projectName}}.{{projectName}}.model.User;
+import com.{{snakeCase projectName}}.{{projectName}}.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/api/users")
+@CrossOrigin(origins = "*")
+public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    @GetMapping
+    public ResponseEntity<ApiResponse<List<User>>> getAllUsers() {
+        try {
+            List<User> users = userService.getAllUsers();
+            return ResponseEntity.ok(new ApiResponse<>(true, users, "Users retrieved successfully"));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse<>(false, null, "Failed to retrieve users: " + e.getMessage()));
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse<User>> getUserById(@PathVariable String id) {
+        try {
+            Optional<User> user = userService.getUserById(id);
+            if (user.isPresent()) {
+                return ResponseEntity.ok(new ApiResponse<>(true, user.get(), "User retrieved successfully"));
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(new ApiResponse<>(false, null, "User not found"));
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse<>(false, null, "Failed to retrieve user: " + e.getMessage()));
+        }
+    }
+
+    @PostMapping
+    public ResponseEntity<ApiResponse<User>> createUser(@RequestBody User user) {
+        try {
+            User createdUser = userService.createUser(user);
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(new ApiResponse<>(true, createdUser, "User created successfully"));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse<>(false, null, "Failed to create user: " + e.getMessage()));
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse<User>> updateUser(@PathVariable String id, @RequestBody User user) {
+        try {
+            User updatedUser = userService.updateUser(id, user);
+            if (updatedUser != null) {
+                return ResponseEntity.ok(new ApiResponse<>(true, updatedUser, "User updated successfully"));
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(new ApiResponse<>(false, null, "User not found"));
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse<>(false, null, "Failed to update user: " + e.getMessage()));
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<Void>> deleteUser(@PathVariable String id) {
+        try {
+            boolean deleted = userService.deleteUser(id);
+            if (deleted) {
+                return ResponseEntity.ok(new ApiResponse<>(true, null, "User deleted successfully"));
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(new ApiResponse<>(false, null, "User not found"));
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse<>(false, null, "Failed to delete user: " + e.getMessage()));
+        }
+    }
+}

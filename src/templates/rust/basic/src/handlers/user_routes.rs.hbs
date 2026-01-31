@@ -1,0 +1,15 @@
+use actix_web::{web, Scope};
+use uuid::Uuid;
+
+use super::user;
+
+pub fn config(cfg: &mut web::ServiceConfig) {
+    cfg.service(
+        web::scope("/users")
+            .route("", web::get().to(user::get_users))
+            .route("/{id}", web::get().to(user::get_user))
+            .route("", web::post().to(user::create_user))
+            .route("/{id}", web::put().to(user::update_user))
+            .route("/{id}", web::delete().to(user::delete_user))
+    );
+}

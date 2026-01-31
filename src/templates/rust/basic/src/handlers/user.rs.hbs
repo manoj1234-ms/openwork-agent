@@ -1,0 +1,130 @@
+use actix_web::{web, HttpResponse, Result};
+use diesel::prelude::*;
+use uuid::Uuid;
+use chrono::Utc;
+
+use crate::models::{User, NewUser, UpdateUser, ApiResponse, CreateUserRequest, UpdateUserRequest};
+use crate::schema::users;
+use crate::DbPool;
+
+pub async fn get_users(pool: web::Data<DbPool>) -> Result<HttpResponse> {
+    let mut conn = pool.get().expect("Failed to get connection");
+    
+    let users = web::block(move || {
+        users::table
+            .select(User::as_select())
+            .load::<User>(&mut conn)
+    })
+    .await
+    .expect("Failed to execute query");
+
+    Ok(HttpResponse::Ok().json(ApiResponse::success(users)))
+}
+
+pub async fn get_user(
+    path: web::Path<Uuid>,
+    pool: web::Data<DbPool>
+) -> Result<HttpResponse> {
+    let user_id = path.into_inner();
+    let mut conn = pool.get().expect("Failed to get connection");
+
+    let user = web::block(move || {
+        users::table
+            .filter(users::id.eq(user_id))
+            .select(User::as_select())
+            .first::<User>(&mut conn)
+            .optional()
+    })
+    .await
+    .expect("Failed to execute query");
+
+    match user {
+        Some(user) => Ok(HttpResponse::Ok().json(ApiResponse::success(user))),
+        None => Ok(HttpResponse::NotFound().json(ApiResponse::<User>::error(
+            "User not found".to_string()
+        ))),
+    }
+}
+
+pub async fn create_user(
+    user_data: web::Json<CreateUserRequest>,
+    pool: web::Data<DbPool>
+) -> Result<HttpResponse> {
+    let new_user = NewUser {
+        name: user_data.name.clone(),
+        email: user_data.email.clone(),
+        age: user_data.age,
+    };
+
+    let mut conn = pool.get().expect("Failed to get connection");
+
+    let user = web::block(move || {
+        diesel::insert_into(users::table)
+            .values(&new_user)
+            .returning(User::as_returning())
+            .get_result::<User>(&mut conn)
+    })
+    .await
+    .expect("Failed to execute query");
+
+    Ok(HttpResponse::Created().json(ApiResponse::success(user)))
+}
+
+pub async fn update_user(
+    path: web::Path<Uuid>,
+    user_data: web::Json<UpdateUserRequest>,
+    pool: web::Data<DbPool>
+) -> Result<HttpResponse> {
+    let user_id = path.into_inner();
+    let update_data = UpdateUser {
+        name: user_data.name.clone(),
+        email: user_data.email.clone(),
+        age: user_data.age,
+        updated_at: Utc::now(),
+    };
+
+    let mut conn = pool.get().expect("Failed to get connection");
+
+    let user = web::block(move || {
+        diesel::update(users::table.filter(users::id.eq(user_id)))
+            .set(&update_data)
+            .returning(User::as_returning())
+            .get_result::<User>(&mut conn)
+            .optional()
+    })
+    .await
+    .expect("Failed to execute query");
+
+    match user {
+        Some(user) => Ok(HttpResponse::Ok().json(ApiResponse::success(user))),
+        None => Ok(HttpResponse::NotFound().json(ApiResponse::<User>::error(
+            "User not found".to_string()
+        ))),
+    }
+}
+
+pub async fn delete_user(
+    path: web::Path<Uuid>,
+    pool: web::Data<DbPool>
+) -> Result<HttpResponse> {
+    let user_id = path.into_inner();
+    let mut conn = pool.get().expect("Failed to get connection");
+
+    let rows_affected = web::block(move || {
+        diesel::delete(users::table.filter(users::id.eq(user_id)))
+            .execute(&mut conn)
+    })
+    .await
+    .expect("Failed to execute query");
+
+    if rows_affected > 0 {
+        Ok(HttpResponse::Ok().json(ApiResponse::<()>::success_with_message(
+            (),
+            "User deleted successfully".to_string()
+        )))
+    } else {
+        Ok(HttpResponse::NotFound().json(ApiResponse::<()>::error(
+            "User not found".to_string()
+        )))
+    }
+}

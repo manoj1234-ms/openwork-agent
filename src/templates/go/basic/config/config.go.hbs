@@ -1,0 +1,54 @@
+package config
+
+import (
+	"log"
+	"os"
+	"strconv"
+)
+
+type Config struct {
+	ServerPort    string
+	DatabaseURL   string
+	DatabaseName  string
+	JWTSecret     string
+	Environment   string
+}
+
+var AppConfig *Config
+
+func LoadConfig() {
+	AppConfig = &Config{
+		ServerPort:   getEnv("PORT", "8080"),
+		DatabaseURL:  getEnv("DATABASE_URL", "mongodb://localhost:27017"),
+		DatabaseName: getEnv("DB_NAME", "{{projectName}}"),
+		JWTSecret:    getEnv("JWT_SECRET", "your-secret-key"),
+		Environment:  getEnv("ENVIRONMENT", "development"),
+	}
+
+	log.Printf("Configuration loaded for environment: %s", AppConfig.Environment)
+}
+
+func getEnv(key, defaultValue string) string {
+	if value := os.Getenv(key); value != "" {
+		return value
+	}
+	return defaultValue
+}
+
+func getEnvAsInt(key string, defaultValue int) int {
+	if valueStr := os.Getenv(key); valueStr != "" {
+		if value, err := strconv.Atoi(valueStr); err == nil {
+			return value
+		}
+	}
+	return defaultValue
+}
+
+func getEnvAsBool(key string, defaultValue bool) bool {
+	if valueStr := os.Getenv(key); valueStr != "" {
+		if value, err := strconv.ParseBool(valueStr); err == nil {
+			return value
+		}
+	}
+	return defaultValue
+}

@@ -1,0 +1,29 @@
+{
+  "name": "test-global-project",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "nodemon src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "dependencies": [
+    "express",
+    "cors",
+    "helmet",
+    "mongoose",
+    "dotenv"
+  ],
+  "devDependencies": [
+    "@types/node",
+    "typescript",
+    "ts-node",
+    "nodemon",
+    "jest",
+    "@types/jest",
+    "ts-jest"
+  ],
+  "license": "MIT"
+}

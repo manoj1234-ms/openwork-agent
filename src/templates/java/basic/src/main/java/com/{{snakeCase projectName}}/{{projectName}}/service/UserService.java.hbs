@@ -1,0 +1,65 @@
+package com.{{snakeCase projectName}}.{{projectName}}.service;
+
+import com.{{snakeCase projectName}}.{{projectName}}.model.User;
+import com.{{snakeCase projectName}}.{{projectName}}.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class UserService {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public Optional<User> getUserById(String id) {
+        return userRepository.findById(id);
+    }
+
+    public User createUser(User user) {
+        user.setCreatedAt(LocalDateTime.now());
+        user.setUpdatedAt(LocalDateTime.now());
+        return userRepository.save(user);
+    }
+
+    public User updateUser(String id, User userDetails) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.setName(userDetails.getName() != null ? userDetails.getName() : user.getName());
+            user.setEmail(userDetails.getEmail() != null ? userDetails.getEmail() : user.getEmail());
+            user.setAge(userDetails.getAge() != null ? userDetails.getAge() : user.getAge());
+            user.setUpdatedAt(LocalDateTime.now());
+            return userRepository.save(user);
+        }
+        return null;
+    }
+
+    public boolean deleteUser(String id) {
+        if (userRepository.existsById(id)) {
+            userRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
+    public Optional<User> getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    public List<User> getUsersByName(String name) {
+        return userRepository.findByNameContainingIgnoreCase(name);
+    }
+
+    public boolean userExists(String email) {
+        return userRepository.existsByEmail(email);
+    }
+}

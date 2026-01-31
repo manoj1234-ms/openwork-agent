@@ -1,0 +1,16 @@
+package com.{{snakeCase projectName}}.{{projectName}};
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+
+@SpringBootApplication
+@EnableMongoRepositories
+public class {{pascalCase projectName}}Application {
+
+    public static void main(String[] args) {
+        SpringApplication.run({{pascalCase projectName}}Application.class, args);
+        System.out.println("🚀 " + "{{pascalCase projectName}}" + " application started successfully!");
+    }
+
+}

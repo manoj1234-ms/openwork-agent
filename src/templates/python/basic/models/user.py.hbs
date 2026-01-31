@@ -1,0 +1,40 @@
+from pydantic import BaseModel, EmailStr
+from typing import Optional
+from datetime import datetime
+from bson import ObjectId
+
+class PyObjectId(ObjectId):
+    """Custom ObjectId class for Pydantic"""
+    @classmethod
+    def __get_validators__(cls):
+        yield cls.validate
+
+    @classmethod
+    def validate(cls, v):
+        if not ObjectId.is_valid(v):
+            raise ValueError("Invalid objectid")
+        return ObjectId(v)
+
+class UserBase(BaseModel):
+    name: str
+    email: EmailStr
+    age: Optional[int] = None
+
+class UserCreate(UserBase):
+    pass
+
+class UserUpdate(BaseModel):
+    name: Optional[str] = None
+    email: Optional[EmailStr] = None
+    age: Optional[int] = None
+
+class User(UserBase):
+    id: Optional[PyObjectId] = None
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
+
+    class Config:
+        arbitrary_types_allowed = True
+        json_encoders = {
+            ObjectId: str
+        }

@@ -1,0 +1,36 @@
+from motor.motor_asyncio import AsyncIOMotorClient
+from pymongo.errors import ConnectionFailure
+import os
+from typing import Optional
+
+client: Optional[AsyncIOMotorClient] = None
+database = None
+
+async def connect_database():
+    """Connect to MongoDB database"""
+    global client, database
+    
+    try:
+        mongo_uri = os.getenv("MONGODB_URI", "mongodb://localhost:27017/{{projectName}}")
+        client = AsyncIOMotorClient(mongo_uri)
+        
+        # Test the connection
+        await client.admin.command('ping')
+        
+        database = client[os.getenv("DB_NAME", "{{projectName}}")]
+        print("✅ Connected to MongoDB")
+        
+    except ConnectionFailure as e:
+        print(f"❌ MongoDB connection error: {e}")
+        raise
+
+async def disconnect_database():
+    """Disconnect from MongoDB"""
+    global client
+    if client:
+        client.close()
+        print("🔌 Disconnected from MongoDB")
+
+async def get_database():
+    """Get database instance"""
+    return database
