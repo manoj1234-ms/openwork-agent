@@ -1,427 +1,227 @@
-# OpenWork Agent
 
 <div align="center">
+# OpenWork Agent 
+![npm](https://img.shields.io/npm/v/openwork-agent)
+![npm](https://img.shields.io/npm/dw/openwork-agent)
+![license](https://img.shields.io/npm/l/openwork-agent)
 
-![OpenWork Agent Logo](https://img.shields.io/badge/OpenWork-Agent-blue?style=for-the-badge&logo=code)
-![NPM Version](https://img.shields.io/npm/v/openwork-agent?style=for-the-badge&logo=npm)
-![License](https://img.shields.io/npm/l/openwork-agent?style=for-the-badge&logo=open-source-initiative)
-![Downloads](https://img.shields.io/npm/dt/openwork-agent?style=for-the-badge&logo=npm)
+**AI-powered backend code generator for any technology stack.**
 
-**AI-powered backend code generator for any technology stack**
-
-Create complete backend projects with just a few commands! 🚀
+Generate **production-ready backend projects in seconds** — with Docker, CI/CD, authentication, security, and best practices already configured.
 
 [Install](#-installation) • [Quick Start](#-quick-start) • [Documentation](#-documentation) • [Contributing](#-contributing)
 
+```bash
+npx openwork-agent create my-api
+
 </div>
 
----
+What Problem Does OpenWork Agent Solve?
 
-## ✨ Features
+Backend setup usually means:
 
-- 🌍 **Multiple Technologies**: Node.js, Python, Java, Go, Rust, PHP, and more
-- 🎯 **Popular Frameworks**: Express, FastAPI, Spring Boot, Gin, Actix, Laravel, etc.
-- 🗄️ **Database Support**: MongoDB, PostgreSQL, MySQL, SQLite, Redis
-- 🐳 **Docker Support**: Automatic Dockerfile and docker-compose generation
-- 🚀 **CI/CD Ready**: GitHub Actions workflow generation
-- 💬 **Interactive Mode**: Guided project setup with prompts
-- 📋 **Template System**: Customizable templates for any stack
-- 🔍 **Technology Detection**: Analyze existing projects
-- 🛡️ **Best Practices**: Security, logging, error handling, CORS
+Copy-pasting boilerplate from random GitHub repos
 
-## 📦 Installation
+Manually configuring Docker, databases, CI/CD
 
-### Global Installation (Recommended)
+Forgetting security, tests, or best practices
 
-```bash
+OpenWork Agent solves this in one command.
+
+You get a clean, scalable, secure backend instantly — ready for development or production.
+
+✨ Key Features
+
+🌍 Supports multiple languages & frameworks
+
+🎯 Production-ready project structure
+
+🗄️ Database integration out of the box
+
+🐳 Docker & docker-compose included
+
+🚀 CI/CD via GitHub Actions
+
+🔐 Authentication, validation & security defaults
+
+💬 Interactive & CLI-based usage
+
+📋 Customizable template system
+
+📦 Installation (Recommended Way)
+✅ Run without installing (Best for new users)
+npx openwork-agent create my-api
+
+Global Installation
 npm install -g openwork-agent
-```
 
-### Local Installation
-
-```bash
-npm install openwork-agent
-```
-
-### Using Yarn
-
-```bash
+Yarn / pnpm
 yarn global add openwork-agent
-```
-
-### Using pnpm
-
-```bash
 pnpm add -g openwork-agent
-```
 
-## 🚀 Quick Start
-
-### 1. Create a New Project (Interactive Mode)
-
-```bash
+🚀 How to Use (Proper Usage Guide)
+1️⃣ Interactive Project Creation
 openwork-agent create my-awesome-api
-```
 
-### 2. Create with Specific Technology
 
-```bash
-openwork-agent create my-fastapi-app --tech python --framework fastapi --database postgresql
-```
+👉 Guides you step-by-step using prompts.
 
-### 3. Create with Docker and Tests
+2️⃣ Create with Specific Tech Stack
+openwork-agent create my-fastapi-app \
+  --tech python \
+  --framework fastapi \
+  --database postgresql
 
-```bash
-openwork-agent create my-enterprise-app --tech node --framework express --database mongodb --docker --tests
-```
+3️⃣ Include Docker & Tests
+openwork-agent create enterprise-api \
+  --tech node \
+  --framework express \
+  --database mongodb \
+  --docker \
+  --tests
 
-### 4. List Available Templates
-
-```bash
+4️⃣ List Available Templates
 openwork-agent templates
-```
 
-### 5. Analyze Existing Project
-
-```bash
+5️⃣ Analyze Existing Project
 cd existing-project
 openwork-agent analyze
-```
 
-## 📋 Supported Technologies
 
-### JavaScript/Node.js
-- **Frameworks**: Express.js, NestJS, Fastify, Koa, Hapi
-- **Databases**: MongoDB (Mongoose), PostgreSQL, MySQL, SQLite
-- **Features**: TypeScript, JWT auth, validation, testing
+👉 Detects tech stack, structure & suggests improvements.
 
-### Python
-- **Frameworks**: FastAPI, Django, Flask, Tornado, AioHTTP
-- **Databases**: MongoDB (Motor), PostgreSQL (asyncpg), MySQL, SQLite
-- **Features**: Pydantic validation, async/await, Swagger docs
+🧰 Supported Technologies
+JavaScript / Node.js
 
-### Java
-- **Frameworks**: Spring Boot, Quarkus, Micronaut, Vert.x
-- **Databases**: MongoDB, PostgreSQL, MySQL, Oracle
-- **Features**: Spring Data, REST controllers, JPA, testing
+Frameworks: Express, NestJS, Fastify
 
-### Go
-- **Frameworks**: Gin, Echo, Fiber, Chi, Gorilla Mux
-- **Databases**: MongoDB, PostgreSQL, MySQL, SQLite
-- **Features**: Structured logging, middleware, validation
+Databases: MongoDB, PostgreSQL, MySQL
 
-### Rust
-- **Frameworks**: Actix-web, Rocket, Warp, Axum
-- **Databases**: PostgreSQL, SQLite
-- **Features**: Diesel ORM, async, error handling
+Features: TypeScript, JWT, validation
 
-### PHP
-- **Frameworks**: Laravel, Symfony, Slim
-- **Databases**: MySQL, PostgreSQL, SQLite
-- **Features**: Eloquent ORM, middleware, routing
+Python
 
-## 📖 Usage Examples
+Frameworks: FastAPI, Django, Flask
 
-### Node.js with Express and MongoDB
+Databases: PostgreSQL, MongoDB
 
-```bash
-openwork-agent create blog-api --tech node --framework express --database mongodb --docker
-```
+Features: Async, Swagger, Pydantic
 
-**Generated:**
-- Express.js server with TypeScript
-- MongoDB integration with Mongoose
-- User CRUD operations
-- Docker setup
-- JWT authentication
-- Error handling middleware
+Java
 
-### Python FastAPI with PostgreSQL
+Frameworks: Spring Boot, Quarkus
 
-```bash
-openwork-agent create data-api --tech python --framework fastapi --database postgresql --tests
-```
+Databases: MySQL, PostgreSQL
 
-**Generated:**
-- FastAPI application
-- PostgreSQL integration
-- Pydantic models
-- Async database operations
-- API documentation (Swagger)
-- Unit tests with pytest
+Features: JPA, REST, testing
 
-### Java Spring Boot Microservice
+Go
 
-```bash
-openwork-agent create user-service --tech java --framework spring --database mysql --ci
-```
+Frameworks: Gin, Echo
 
-**Generated:**
-- Spring Boot application
-- MySQL integration with JPA
-- REST controllers
-- Service layer
-- Unit tests with JUnit
-- GitHub Actions workflow
+Databases: PostgreSQL, MongoDB
 
-### Go Gin Web Service
+Rust
 
-```bash
-openwork-agent create go-api --tech go --framework gin --database postgresql --docker
-```
+Frameworks: Actix-web, Axum
 
-**Generated:**
-- Gin web framework setup
-- PostgreSQL with GORM
-- Structured logging
-- Configuration management
-- Docker multi-stage build
+PHP
 
-## 🗂️ Project Structure
+Frameworks: Laravel, Symfony
 
-Generated projects follow best practices:
-
-```
+📂 Generated Project Structure
 my-project/
-├── src/                    # Source code
-│   ├── controllers/        # Route controllers
-│   ├── models/            # Data models
-│   ├── routes/            # API routes
-│   ├── middleware/        # Middleware
-│   ├── services/          # Business logic
-│   ├── utils/             # Utilities
-│   └── config/            # Configuration
-├── tests/                 # Test files
-├── docs/                  # Documentation
-├── Dockerfile            # Docker configuration
-├── docker-compose.yml    # Development environment
-├── .github/workflows/     # CI/CD workflows
-├── package.json         # Dependencies
-├── .env.example          # Environment template
-└── README.md            # Project documentation
-```
+├── src/
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   ├── middleware/
+│   ├── services/
+│   └── config/
+├── tests/
+├── docs/
+├── Dockerfile
+├── docker-compose.yml
+├── .github/workflows/
+├── .env.example
+└── README.md
 
-## 🔧 Configuration
+🔐 Security & Best Practices (Built-in)
 
-### CLI Options
+Input validation
 
-```bash
-Options:
-  -t, --tech <technology>      Specify technology (node, python, java, go, rust, php)
-  -d, --database <database>    Specify database (mongodb, postgresql, mysql, sqlite, redis)
-  -f, --framework <framework>  Specify framework (express, fastapi, spring, gin, etc.)
-  --template <template>        Use specific template
-  --no-interactive            Skip interactive prompts
-  --docker                     Include Docker configuration
-  --tests                      Include test setup
-  --ci                         Include CI/CD configuration
-```
+SQL injection protection
 
-### Environment Variables
+JWT authentication
 
-```bash
-# Server
-PORT=3000
-NODE_ENV=development
+CORS configuration
 
-# Database
-DATABASE_URL=mongodb://localhost:27017/myapp
-DB_NAME=myapp
+Secure headers
 
-# Security
-JWT_SECRET=your-secret-key
-CORS_ORIGINS=http://localhost:3000
+Rate limiting
 
-# Logging
-LOG_LEVEL=info
-```
+Structured logging
 
-## 📡 API Endpoints
+Health check endpoints
 
-Every generated project includes these standard endpoints:
+🧪 Testing Support
 
-### Health Check
-```http
-GET /health
-```
+Node.js → Jest
 
-### User Management
-```http
-GET    /api/users        # Get all users
-GET    /api/users/:id    # Get user by ID
-POST   /api/users        # Create new user
-PUT    /api/users/:id    # Update user
-DELETE /api/users/:id    # Delete user
-```
+Python → Pytest
 
-## 🐳 Docker Support
+Java → JUnit
 
-Generated projects include:
+Go → go test
 
-### Multi-stage Dockerfile
-Optimized for production builds with security best practices.
+Rust → cargo test
 
-### Docker Compose
-Complete development environment with database and services.
+🆚 Why Choose OpenWork Agent?
+Feature	OpenWork Agent	Yeoman	Manual Setup
+Multi-language	✅	❌	❌
+Docker ready	✅	❌	❌
+CI/CD included	✅	❌	❌
+Security defaults	✅	❌	❌
+AI-assisted	✅	❌	❌
+🗺️ Roadmap
 
-### Example docker-compose.yml
-```yaml
-version: '3.8'
-services:
-  api:
-    build: .
-    ports:
-      - "3000:3000"
-    depends_on:
-      - mongodb
-    environment:
-      - DATABASE_URL=mongodb://mongodb:27017/myapp
-  
-  mongodb:
-    image: mongo:7.0
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongodb_data:/data/db
+ GraphQL templates
 
-volumes:
-  mongodb_data:
-```
+ Frontend generation
 
-## 🧪 Testing
+ Microservice architecture
 
-Generated projects include comprehensive test setups:
+ WebSocket support
 
-### Node.js
-```bash
-npm test                    # Run tests
-npm run test:watch         # Watch mode
-npm run test:coverage      # Coverage report
-```
+ Cloud deployment templates
 
-### Python
-```bash
-pytest                     # Run tests
-pytest --cov              # Coverage report
-pytest -v                 # Verbose output
-```
+🤝 Contributing
 
-### Java
-```bash
-mvn test                   # Run tests
-mvn verify                 # Run with integration tests
-```
+Contributions are welcome ❤️
 
-### Go
-```bash
-go test ./...              # Run all tests
-go test -v ./...          # Verbose output
-go test -cover ./...      # Coverage report
-```
-
-### Rust
-```bash
-cargo test                 # Run tests
-cargo test -- --nocapture # Verbose output
-```
-
-## 🔒 Security Features
-
-- **Input Validation**: Comprehensive validation using appropriate libraries
-- **SQL Injection Prevention**: ORM usage with parameterized queries
-- **XSS Protection**: Content Security Policy and input sanitization
-- **CORS Configuration**: Proper CORS setup for APIs
-- **Security Headers**: Helmet.js (Node.js) or equivalent
-- **JWT Authentication**: Secure token-based authentication
-- **Rate Limiting**: Built-in rate limiting support
-
-## 📈 Performance Features
-
-- **Connection Pooling**: Database connection management
-- **Caching**: Redis integration support
-- **Async Operations**: Full async/await support where applicable
-- **Compression**: Gzip/Brotli compression
-- **Error Handling**: Comprehensive error handling and logging
-- **Health Checks**: Application health monitoring
-
-## 🚀 Deployment
-
-### Heroku
-```bash
-heroku create your-app-name
-git push heroku main
-```
-
-### Vercel
-```bash
-npm i -g vercel
-vercel --prod
-```
-
-### Railway
-```bash
-railway login
-railway init
-railway up
-```
-
-### AWS
-```bash
-# Using Docker
-docker build -t my-app .
-docker run -p 3000:3000 my-app
-```
-
-## 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
-
-### Development Setup
-
-```bash
 git clone https://github.com/openwork-agent/openwork-agent.git
 cd openwork-agent
 npm install
 npm test
 npm link
-```
 
-### Adding New Templates
+📞 Support
 
-1. Create template files in `src/templates/{technology}/`
-2. Add framework support in `TechDetector.js`
-3. Update configuration in generators
-4. Add tests and documentation
+🐛 Issues: GitHub Issues
 
-## 📝 License
+📧 Email: manoj.sharma@example.com
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+💼 LinkedIn: Manoj Sharma
 
-## 🙏 Acknowledgments
+📝 License
 
-- Built with ❤️ for the developer community
-- Thanks to all the amazing open-source projects
-- Inspired by the need for rapid backend development
+MIT License © Manoj Sharma
 
-## 📞 Support
+⭐ If this project helps you, please star the repo — it really supports open source!
 
-- 📧 Email: [manoj.sharma@example.com](mailto:manoj.sharma@example.com)
-- 💼 LinkedIn: [Manoj Sharma](https://linkedin.com/in/manoj-sharma)
-- 🐛 Issues: [GitHub Issues](https://github.com/manoj1234-ms/openwork-agent/issues)
-- 📖 Documentation: [GitHub README](https://github.com/manoj1234-ms/openwork-agent#readme)
+----
 
-## 🗺️ Roadmap
-
-- [ ] GraphQL template support
-- [ ] Frontend template generation
-- [ ] Microservice templates
-- [ ] Real-time features (WebSocket)
-- [ ] Advanced authentication patterns
-- [ ] Monitoring and observability
-- [ ] Cloud deployment templates
-- [ ] Template marketplace
-
----
+If you want, I can guide you **step-by-step to hit 100+ weekly downloads** 🚀
 
 <div align="center">
 
