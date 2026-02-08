@@ -1,236 +1,205 @@
-
 <div align="center">
-# OpenWork Agent 
-![npm](https://img.shields.io/npm/v/openwork-agent)
-![npm](https://img.shields.io/npm/dw/openwork-agent)
-![license](https://img.shields.io/npm/l/openwork-agent)
 
-**AI-powered backend code generator for any technology stack.**
+<h1>🚀 OpenWork Agent</h1>
 
-Generate **production-ready backend projects in seconds** — with Docker, CI/CD, authentication, security, and best practices already configured.
+<p>
+  <img src="https://img.shields.io/npm/v/openwork-agent" />
+  <img src="https://img.shields.io/npm/dw/openwork-agent" />
+  <img src="https://img.shields.io/npm/l/openwork-agent" />
+</p>
 
-[Install](#-installation) • [Quick Start](#-quick-start) • [Documentation](#-documentation) • [Contributing](#-contributing)
+<p>
+  <strong>AI-powered backend code generator for any technology stack</strong>
+</p>
 
-```bash
-npx openwork-agent create my-api
+<p>
+  Generate <strong>production-ready backend projects in seconds</strong><br/>
+  with Docker, CI/CD, authentication, security, and best practices.
+</p>
+
+<pre><code>npx openwork-agent create my-api</code></pre>
+
+<p>
+  <a href="#installation">Installation</a> •
+  <a href="#quick-start">Quick Start</a> •
+  <a href="#supported-technologies">Technologies</a> •
+  <a href="#contributing">Contributing</a>
+</p>
 
 </div>
 
-What Problem Does OpenWork Agent Solve?
+<hr/>
 
-Backend setup usually means:
+<h2>❓ What Problem Does OpenWork Agent Solve?</h2>
 
-Copy-pasting boilerplate from random GitHub repos
+<p>Backend setup usually means:</p>
 
-Manually configuring Docker, databases, CI/CD
+<ul>
+  <li>Copy-pasting boilerplate from random GitHub repositories</li>
+  <li>Manually configuring Docker, databases, and CI/CD</li>
+  <li>Forgetting security, testing, or best practices</li>
+</ul>
 
-Forgetting security, tests, or best practices
+<p>
+  <strong>OpenWork Agent solves this in one command.</strong><br/>
+  You get a clean, scalable, and secure backend instantly — ready for development or production.
+</p>
 
-OpenWork Agent solves this in one command.
+<hr/>
 
-You get a clean, scalable, secure backend instantly — ready for development or production.
+<h2>✨ Key Features</h2>
 
-✨ Key Features
+<ul>
+  <li>🌍 Multi-language & multi-framework support</li>
+  <li>🎯 Production-ready project structure</li>
+  <li>🗄️ Database integration out of the box</li>
+  <li>🐳 Docker & docker-compose included</li>
+  <li>🚀 CI/CD with GitHub Actions</li>
+  <li>🔐 Authentication, validation & security defaults</li>
+  <li>💬 Interactive & CLI-based usage</li>
+  <li>📋 Customizable template system</li>
+</ul>
 
-🌍 Supports multiple languages & frameworks
+<hr/>
 
-🎯 Production-ready project structure
+<h2 id="installation">📦 Installation</h2>
 
-🗄️ Database integration out of the box
+<h3>Quick Run (Recommended)</h3>
+<pre><code>npx openwork-agent create my-api</code></pre>
 
-🐳 Docker & docker-compose included
+<h3>Global Install</h3>
+<pre><code>npm install -g openwork-agent</code></pre>
 
-🚀 CI/CD via GitHub Actions
+<h3>Yarn / pnpm</h3>
+<pre><code>yarn global add openwork-agent
+pnpm add -g openwork-agent</code></pre>
 
-🔐 Authentication, validation & security defaults
+<hr/>
 
-💬 Interactive & CLI-based usage
+<h2 id="quick-start">🚀 Quick Start</h2>
 
-📋 Customizable template system
+<h3>Interactive Mode</h3>
+<pre><code>openwork-agent create my-awesome-api</code></pre>
 
-📦 Installation (Recommended Way)
-✅ Run without installing (Best for new users)
-npx openwork-agent create my-api
-
-Global Installation
-npm install -g openwork-agent
-
-Yarn / pnpm
-yarn global add openwork-agent
-pnpm add -g openwork-agent
-
-🚀 How to Use (Proper Usage Guide)
-1️⃣ Interactive Project Creation
-openwork-agent create my-awesome-api
-
-
-👉 Guides you step-by-step using prompts.
-
-2️⃣ Create with Specific Tech Stack
-openwork-agent create my-fastapi-app \
+<h3>Specific Tech Stack</h3>
+<pre><code>openwork-agent create my-fastapi-app \
   --tech python \
   --framework fastapi \
   --database postgresql
+</code></pre>
 
-3️⃣ Include Docker & Tests
-openwork-agent create enterprise-api \
+<h3>Docker + Tests</h3>
+<pre><code>openwork-agent create enterprise-api \
   --tech node \
   --framework express \
   --database mongodb \
   --docker \
   --tests
+</code></pre>
 
-4️⃣ List Available Templates
-openwork-agent templates
+<hr/>
 
-5️⃣ Analyze Existing Project
-cd existing-project
-openwork-agent analyze
+<h2 id="supported-technologies">🧰 Supported Technologies</h2>
 
+<h3>JavaScript / Node.js</h3>
+<ul>
+  <li>Express, NestJS, Fastify</li>
+  <li>MongoDB, PostgreSQL, MySQL</li>
+</ul>
 
-👉 Detects tech stack, structure & suggests improvements.
+<h3>Python</h3>
+<ul>
+  <li>FastAPI, Django, Flask</li>
+  <li>PostgreSQL, MongoDB</li>
+</ul>
 
-🧰 Supported Technologies
-JavaScript / Node.js
+<h3>Java</h3>
+<ul>
+  <li>Spring Boot, Quarkus</li>
+  <li>MySQL, PostgreSQL</li>
+</ul>
 
-Frameworks: Express, NestJS, Fastify
+<h3>Go</h3>
+<ul>
+  <li>Gin, Echo</li>
+</ul>
 
-Databases: MongoDB, PostgreSQL, MySQL
+<h3>Rust</h3>
+<ul>
+  <li>Actix-web, Axum</li>
+</ul>
 
-Features: TypeScript, JWT, validation
+<h3>PHP</h3>
+<ul>
+  <li>Laravel, Symfony</li>
+</ul>
 
-Python
+<hr/>
 
-Frameworks: FastAPI, Django, Flask
+<h2>🆚 Why Choose OpenWork Agent?</h2>
 
-Databases: PostgreSQL, MongoDB
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>OpenWork Agent</th>
+      <th>Yeoman</th>
+      <th>Manual Setup</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Multi-language</td>
+      <td>✅</td>
+      <td>❌</td>
+      <td>❌</td>
+    </tr>
+    <tr>
+      <td>Docker ready</td>
+      <td>✅</td>
+      <td>❌</td>
+      <td>❌</td>
+    </tr>
+    <tr>
+      <td>CI/CD included</td>
+      <td>✅</td>
+      <td>❌</td>
+      <td>❌</td>
+    </tr>
+    <tr>
+      <td>Security defaults</td>
+      <td>✅</td>
+      <td>❌</td>
+      <td>❌</td>
+    </tr>
+    <tr>
+      <td>AI-assisted</td>
+      <td>✅</td>
+      <td>❌</td>
+      <td>❌</td>
+    </tr>
+  </tbody>
+</table>
 
-Features: Async, Swagger, Pydantic
+<hr/>
 
-Java
+<h2 id="contributing">🤝 Contributing</h2>
 
-Frameworks: Spring Boot, Quarkus
-
-Databases: MySQL, PostgreSQL
-
-Features: JPA, REST, testing
-
-Go
-
-Frameworks: Gin, Echo
-
-Databases: PostgreSQL, MongoDB
-
-Rust
-
-Frameworks: Actix-web, Axum
-
-PHP
-
-Frameworks: Laravel, Symfony
-
-📂 Generated Project Structure
-my-project/
-├── src/
-│   ├── controllers/
-│   ├── models/
-│   ├── routes/
-│   ├── middleware/
-│   ├── services/
-│   └── config/
-├── tests/
-├── docs/
-├── Dockerfile
-├── docker-compose.yml
-├── .github/workflows/
-├── .env.example
-└── README.md
-
-🔐 Security & Best Practices (Built-in)
-
-Input validation
-
-SQL injection protection
-
-JWT authentication
-
-CORS configuration
-
-Secure headers
-
-Rate limiting
-
-Structured logging
-
-Health check endpoints
-
-🧪 Testing Support
-
-Node.js → Jest
-
-Python → Pytest
-
-Java → JUnit
-
-Go → go test
-
-Rust → cargo test
-
-🆚 Why Choose OpenWork Agent?
-Feature	OpenWork Agent	Yeoman	Manual Setup
-Multi-language	✅	❌	❌
-Docker ready	✅	❌	❌
-CI/CD included	✅	❌	❌
-Security defaults	✅	❌	❌
-AI-assisted	✅	❌	❌
-🗺️ Roadmap
-
- GraphQL templates
-
- Frontend generation
-
- Microservice architecture
-
- WebSocket support
-
- Cloud deployment templates
-
-🤝 Contributing
-
-Contributions are welcome ❤️
-
-git clone https://github.com/openwork-agent/openwork-agent.git
+<pre><code>git clone https://github.com/openwork-agent/openwork-agent.git
 cd openwork-agent
 npm install
 npm test
 npm link
+</code></pre>
 
-📞 Support
-
-🐛 Issues: GitHub Issues
-
-📧 Email: manoj.sharma@example.com
-
-💼 LinkedIn: Manoj Sharma
-
-📝 License
-
-MIT License © Manoj Sharma
-
-⭐ If this project helps you, please star the repo — it really supports open source!
-
-----
-
-If you want, I can guide you **step-by-step to hit 100+ weekly downloads** 🚀
+<hr/>
 
 <div align="center">
 
-**⭐ Star this repo if it helped you!**
+<p><strong>⭐ Star this repo if it helped you!</strong></p>
 
-Built with ❤️ by [Manoj Sharma](https://github.com/manoj1234-ms)
-
-[![GitHub stars](https://img.shields.io/github/stars/openwork-agent/openwork-agent?style=social)](https://github.com/openwork-agent/openwork-agent)
-[![GitHub forks](https://img.shields.io/github/forks/openwork-agent/openwork-agent?style=social)](https://github.com/openwork-agent/openwork-agent)
-[![GitHub issues](https://img.shields.io/github/issues/openwork-agent/openwork-agent)](https://github.com/openwork-agent/openwork-agent/issues)
+<p>
+Built with ❤️ by <strong>Manoj Sharma</strong>
+</p>
 
 </div>
