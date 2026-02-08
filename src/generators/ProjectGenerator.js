@@ -1,4 +1,4 @@
-const inquirer = require('inquirer');
+const inquirer = require('inquirer').default;
 const chalk = require('chalk');
 const ora = require('ora');
 const fs = require('fs-extra');
@@ -31,7 +31,7 @@ class ProjectGenerator {
             name: `${tech.toUpperCase()} - ${recommended[tech]?.reason || 'Popular backend technology'}`,
             value: tech
           })),
-          new inquirer.Separator()
+          { name: '──────────────', disabled: true }
         ]
       });
     }
